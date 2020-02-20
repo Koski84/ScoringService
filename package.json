@@ -1,0 +1,19 @@
+{
+  "name": "scoringservice",
+  "version": "1.0.0",
+  "description": "ScoringService for PT10",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Koski84/ScoringService.git"
+  },
+  "author": "Óscar Lamelas Damas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Koski84/ScoringService/issues"
+  },
+  "homepage": "https://github.com/Koski84/ScoringService#readme"
+}
