@@ -1,15 +1,16 @@
 const NO_IMAGES = -10;
-const HD_IMAGE = 20
+const HD_IMAGE = 20;
 const OTHER_IMAGE = 10;
 const NO_DESC = 0;
 const DESC_AVAILABLE = 5;
-const KEYWORD_SCORE = 5;
-const KEYWORDS = [ 'Luminoso', 'Nuevo', 'Cuidado', 'Fabuloso', 'Único', 'Excepcional', 'Ocasión' ] // TODO Ojo mayus/minus/tildes
+const KEYWORD = 5;
 
 class AdvertScore {
   constructor() {
     if (this.constructor == AdvertScore)
       throw Error('Abstract classes canot be instantiated');
+
+    this.KEYWORDS_ARRAY = [ 'Luminoso', 'Nuevo', 'Cuidado', 'Fabuloso', 'Único', 'Excepcional', 'Ocasión' ];
   }
   
   score() {
@@ -40,7 +41,13 @@ class AdvertScore {
   evalDescriptionLength(description) {
     throw new Error("Must be implemented in concrete classes");
   }
+
+  evalKeywords(description) {
+    return this.KEYWORDS_ARRAY
+      .filter(kw => new RegExp(`\\b${kw}\\b`, 'gi').test(description))
+      .length * KEYWORD;
+  }
 }
 
 exports.AdvertScore = AdvertScore;
-exports.const = {NO_IMAGES, HD_IMAGE, OTHER_IMAGE, NO_DESC, DESC_AVAILABLE};
+exports.scoring = { NO_IMAGES, HD_IMAGE, OTHER_IMAGE, NO_DESC, DESC_AVAILABLE, KEYWORD };

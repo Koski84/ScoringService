@@ -1,12 +1,20 @@
 const as = require('./advert-score');
-const {NO_IMAGES, HD_IMAGE, OTHER_IMAGE, NO_DESC, DESC_AVAILABLE} = as.const;
+const {NO_IMAGES, HD_IMAGE, OTHER_IMAGE, NO_DESC, DESC_AVAILABLE, KEYWORD} = as.scoring;
 
 const mockFn = jest.fn().mockReturnValue(0);
 class FakeAdvertScore extends as.AdvertScore { 
+  constructor() {
+    super();
+
+    // Setting keywords here in order to avoid these tests get broken if keywords are changed
+    this.KEYWORDS_ARRAY = [ 'Luminoso', 'Cuidado', 'Fabuloso', 'Único', 'Excepcional', 'Ocasión' ];
+  }
+  
   evalDescriptionLength(desc) { 
     return mockFn(desc);
   }
 }
+
 const sut = new FakeAdvertScore();
 
 test("AdvertScore can't be instantiated because it's abstract", () => {
@@ -47,4 +55,28 @@ test('evalDescriptionLength return value is added', () => {
   mockFn.mockClear();
   mockFn.mockReturnValue(30);
   expect(sut.evalDescription('lorem ipsum')).toBe(30 + DESC_AVAILABLE); 
+})
+
+test(`evalKeywords gets ${KEYWORD} points per keyword`, () => {
+  expect(sut.evalKeywords('Luminoso')).toBe(KEYWORD);
+  expect(sut.evalKeywords('Luminoso y Cuidado')).toBe(KEYWORD * 2);
+});
+
+test("evalKeywords doesn't get points for keyword repetitions", () => {
+  expect(sut.evalKeywords('Cuidado Cuidado Cuidado')).toBe(KEYWORD);
+});
+
+test("Letter case is ignored when searching for keywords", () => {
+  expect(sut.evalKeywords('ojo cuidado, esto es fabuloso')).toBe(KEYWORD * 2);
+});
+
+test("But accent mark is not. You should write propertly", () => {
+  expect(sut.evalKeywords('No dejes pasar esta ocasión')).toBe(KEYWORD);
+  expect(sut.evalKeywords('No dejes pasar esta ocasion')).toBe(0);
+});
+
+test("Keywords preffixes or suffixes invalidate the match", () => {
+  expect(sut.evalKeywords('Cuidadoso o excepcionalmente no cuentan')).toBe(0);
+  expect(sut.evalKeywords('Cuidado y excepcional si lo hacen')).toBe(KEYWORD * 2);
+  expect(sut.evalKeywords('Cuidado, aunque lleve la coma detrás, también contaría')).toBe(KEYWORD);
 })
