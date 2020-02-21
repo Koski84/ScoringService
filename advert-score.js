@@ -16,6 +16,14 @@ class AdvertScore {
   
   getScore(advert) {
     let currentScore = 0;
+    
+    const {images, description} = advert;
+    currentScore += this.evalImages(images);
+    currentScore += this.evalDescription(description);
+    currentScore += this.evalKeywords(description);
+
+    if (this.evalCompleteness(advert))
+      currentScore += COMPLETENESS_SC;
 
     return currentScore;
   }
