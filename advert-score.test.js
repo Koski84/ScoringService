@@ -1,8 +1,8 @@
-const as = require('./advert-score');
-const { NO_IMAGES_SC, HD_IMAGE_SC, OTHER_IMAGE_SC, NO_DESC_SC, DESC_AVAILABLE_SC, KEYWORD_SC, COMPLETENESS_SC } = as.scoring;
+const { AdvertScore, scoring } = require('./advert-score');
+const { NO_IMAGES_SC, HD_IMAGE_SC, OTHER_IMAGE_SC, NO_DESC_SC, DESC_AVAILABLE_SC, KEYWORD_SC, COMPLETENESS_SC } = scoring;
 
 const mockFn = jest.fn().mockReturnValue(0);
-class FakeAdvertScore extends as.AdvertScore { 
+class FakeAdvertScore extends AdvertScore { 
   constructor() {
     super();
 
@@ -18,7 +18,7 @@ class FakeAdvertScore extends as.AdvertScore {
 const sut = new FakeAdvertScore();
 
 test("AdvertScore can't be instantiated because it's abstract", () => {
-  expect(() => new as.AdvertScore()).toThrow(Error);
+  expect(() => new AdvertScore()).toThrow(Error);
 });
 
 describe('Image scoring tests' , () => {
@@ -87,12 +87,12 @@ describe('Description scoring tests', () => {
 
 describe('Completeness tests', () => {
   test('evalCompleteness is true when there is one image at least', () => {
-    expect(sut.evalCompleteness({})).toBe(false);
-    expect(sut.evalCompleteness({ images: [] })).toBe(false);
-    expect(sut.evalCompleteness(null)).toBe(false);
-    expect(sut.evalCompleteness(undefined)).toBe(false);
-    expect(sut.evalCompleteness({ images: [ {} ]})).toBe(true);
-    expect(sut.evalCompleteness({ images: [ {}, {} ]})).toBe(true);
+    expect(sut.evalCompleteness({})).toBeFalsy();
+    expect(sut.evalCompleteness({ images: [] })).toBeFalsy();
+    expect(sut.evalCompleteness(null)).toBeFalsy();
+    expect(sut.evalCompleteness(undefined)).toBeFalsy();
+    expect(sut.evalCompleteness({ images: [ {} ]})).toBeTruthy();
+    expect(sut.evalCompleteness({ images: [ {}, {} ]})).toBeTruthy();
   });
 });
 
@@ -102,7 +102,7 @@ describe('Main function getScore tests', () => {
   let evalKeywordsMock = jest.fn();
   let evalCompletenessMock = jest.fn();
 
-  class FullMockedAdvertScore extends as.AdvertScore {
+  class FullMockedAdvertScore extends AdvertScore {
     evalImages(images) {
       return evalImagesMock(images);
     }
