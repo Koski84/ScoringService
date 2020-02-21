@@ -1,6 +1,10 @@
 const NO_IMAGES = -10;
-const HD_IMAGE = +20
-const OTHER_IMAGE = +10;
+const HD_IMAGE = 20
+const OTHER_IMAGE = 10;
+const NO_DESC = 0;
+const DESC_AVAILABLE = 5;
+const KEYWORD_SCORE = 5;
+const KEYWORDS = [ 'Luminoso', 'Nuevo', 'Cuidado', 'Fabuloso', 'Único', 'Excepcional', 'Ocasión' ] // TODO Ojo mayus/minus/tildes
 
 class AdvertScore {
   constructor() {
@@ -10,10 +14,12 @@ class AdvertScore {
   
   score() {
     let currentScore = 0;
+
+    // TODO
   }
 
   evalImages(arrayOfImages) {
-    if (arrayOfImages.length == 0)
+    if (!arrayOfImages || arrayOfImages.length == 0)
       return NO_IMAGES;
 
     return arrayOfImages
@@ -23,11 +29,12 @@ class AdvertScore {
 
   evalDescription(description) {
     if (!description)
-      return 0;
+      return NO_DESC;
     
-    this.evalDescriptionLength(description);
+    let score = DESC_AVAILABLE;
+    score += this.evalDescriptionLength(description);
 
-    return 5;
+    return score;
   }
 
   evalDescriptionLength(description) {
@@ -36,4 +43,4 @@ class AdvertScore {
 }
 
 exports.AdvertScore = AdvertScore;
-exports.const = {NO_IMAGES, HD_IMAGE, OTHER_IMAGE};
+exports.const = {NO_IMAGES, HD_IMAGE, OTHER_IMAGE, NO_DESC, DESC_AVAILABLE};
