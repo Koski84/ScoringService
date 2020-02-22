@@ -23,10 +23,10 @@ class AdvertScore {
     const keywordsScorePromise = this.evalKeywordsAsync(description)
     const isCompletePromise = this.evalCompletenessAsync(advert)
 
-    return await imagesScorePromise 
-      + await descriptionScorePromise 
-      + await keywordsScorePromise 
-      + (await isCompletePromise ? COMPLETENESS_SC : 0)
+    return await imagesScorePromise +
+      await descriptionScorePromise +
+      await keywordsScorePromise +
+      (await isCompletePromise ? COMPLETENESS_SC : 0)
   }
 
   async evalImagesAsync (arrayOfImages) {
