@@ -1,6 +1,6 @@
 const { AdvertScore } = require('./advert-score')
 
-const WORD_COUNT_FOR_LONG_DESCRIPTION = 50
+const WORD_COUNT_LONG_DESCRIPTION = 50
 const LONG_DESCRIPTION_SC = 20
 
 class ChaletScore extends AdvertScore {
@@ -15,9 +15,9 @@ class ChaletScore extends AdvertScore {
   evalDescriptionLength (description) {
     const wc = description.match(/\w+/g).length
 
-    return wc > WORD_COUNT_FOR_LONG_DESCRIPTION ? LONG_DESCRIPTION_SC : 0
+    return wc > WORD_COUNT_LONG_DESCRIPTION ? LONG_DESCRIPTION_SC : 0
   }
 }
 
 exports.ChaletScore = ChaletScore
-exports.scoring = { WORD_COUNT_FOR_LONG_DESCRIPTION, LONG_DESCRIPTION_SC }
+exports.scoring = { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC }
