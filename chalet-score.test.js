@@ -17,4 +17,7 @@ test('getScore works', () => {
 test(`evalDescriptionLength score ${LONG_DESCRIPTION_SC} points if description is more than ${WORD_COUNT_FOR_LONG_DESCRIPTION} words`, () => {
   expect(sut.evalDescriptionLength([...Array(WORD_COUNT_FOR_LONG_DESCRIPTION + 1).keys()].join(' '))).toBe(LONG_DESCRIPTION_SC)
   expect(sut.evalDescriptionLength([...Array(WORD_COUNT_FOR_LONG_DESCRIPTION).keys()].join(' '))).toBe(0)
+  expect(sut.evalDescriptionLength([...Array(WORD_COUNT_FOR_LONG_DESCRIPTION + 1).keys()].join(','))).toBe(LONG_DESCRIPTION_SC)
+  expect(sut.evalDescriptionLength([...Array(WORD_COUNT_FOR_LONG_DESCRIPTION + 1).keys()].join('\t'))).toBe(LONG_DESCRIPTION_SC)
+  expect(sut.evalDescriptionLength([...Array(WORD_COUNT_FOR_LONG_DESCRIPTION + 1).keys()].join('\n'))).toBe(LONG_DESCRIPTION_SC)
 })

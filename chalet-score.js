@@ -13,8 +13,9 @@ class ChaletScore extends AdvertScore {
   }
 
   evalDescriptionLength (description) {
-    return LONG_DESCRIPTION_SC
-    // TODO Word Count
+    const wc = description.match(/\w+/g).length
+
+    return wc > WORD_COUNT_FOR_LONG_DESCRIPTION ? LONG_DESCRIPTION_SC : 0
   }
 }
 
