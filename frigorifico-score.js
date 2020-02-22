@@ -1,16 +1,17 @@
-const { AdvertScore } = require('./advert-score');
+const { AdvertScore } = require('./advert-score')
 
 class FrigorificoScore extends AdvertScore {
-  evalCompleteness(advert) {
-    if (!advert.height)
-      return false;
+  evalCompleteness (advert) {
+    if (!advert.height) {
+      return false
+    }
 
-    return super.evalCompleteness(advert);
+    return super.evalCompleteness(advert)
   }
 
-  evalDescriptionLength() {
-    return 0;
+  evalDescriptionLength () {
+    return 0
   }
 }
 
-exports.FrigorificoScore = FrigorificoScore;
+exports.FrigorificoScore = FrigorificoScore

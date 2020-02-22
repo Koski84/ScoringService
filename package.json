@@ -4,7 +4,7 @@
   "description": "ScoringService for PT10",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "standard && jest"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,10 @@
   "homepage": "https://github.com/Koski84/ScoringService#readme",
   "devDependencies": {
     "jest": "^25.1.0"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }
