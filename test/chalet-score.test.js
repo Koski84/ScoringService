@@ -1,4 +1,4 @@
-const { ChaletScore, scoring } = require('./chalet-score')
+const { ChaletScore, scoring } = require('../chalet-score')
 const { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC } = scoring
 
 var sut = new ChaletScore()

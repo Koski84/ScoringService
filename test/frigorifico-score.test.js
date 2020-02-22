@@ -1,4 +1,4 @@
-const { FrigorificoScore } = require('./frigorifico-score')
+const { FrigorificoScore } = require('../frigorifico-score')
 
 var sut = new FrigorificoScore()
 

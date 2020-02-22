@@ -1,4 +1,4 @@
-const { AdvertScore, scoring } = require('./advert-score')
+const { AdvertScore, scoring } = require('../advert-score')
 const { NO_IMAGES_SC, HD_IMAGE_SC, OTHER_IMAGE_SC, NO_DESC_SC, DESC_AVAILABLE_SC, KEYWORD_SC, COMPLETENESS_SC } = scoring
 
 const mockFn = jest.fn().mockReturnValue(0)
