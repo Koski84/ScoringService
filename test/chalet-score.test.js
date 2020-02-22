@@ -4,14 +4,14 @@ const { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC } = scoring
 var sut = new ChaletScore()
 
 test('evalCompleteness is true if advert has description, area and image (base advert constraint)', () => {
-  sut.evalCompleteness({ description: 'Vistas al mar', size: '120', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeTruthy())
-  sut.evalCompleteness({ description: '', size: '120', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
-  sut.evalCompleteness({ description: 'Vistas al mar', size: '', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
-  sut.evalCompleteness({ description: 'Vistas al mar', size: '120', images: [] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompletenessAsync({ description: 'Vistas al mar', size: '120', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeTruthy())
+  sut.evalCompletenessAsync({ description: '', size: '120', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompletenessAsync({ description: 'Vistas al mar', size: '', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompletenessAsync({ description: 'Vistas al mar', size: '120', images: [] }).then(value => expect(value).toBeFalsy())
 })
 
-test('getScore works', () => {
-  expect(() => sut.getScore({ description: 'Vistas a Mordor!' })).not.toThrow()
+test('getScoreAsync works', () => {
+  expect(() => sut.getScoreAsync({ description: 'Vistas a Mordor!' })).not.toThrow()
 })
 
 test(`evalDescriptionLength scores ${LONG_DESCRIPTION_SC} points if description is more than ${WORD_COUNT_LONG_DESCRIPTION} words`, () => {

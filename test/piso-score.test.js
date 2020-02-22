@@ -4,14 +4,14 @@ const { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC, WORD_COUNT_VERY_LONG_D
 var sut = new PisoScore()
 
 test('evalCompleteness is true if advert has description, area and image (base advert constraint)', () => {
-  sut.evalCompleteness({ description: 'Muy céntrico', size: '80', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeTruthy())
-  sut.evalCompleteness({ description: '', size: '80', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
-  sut.evalCompleteness({ description: 'Muy céntrico', size: '', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
-  sut.evalCompleteness({ description: 'Muy céntrico', size: '80', images: [] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompletenessAsync({ description: 'Muy céntrico', size: '80', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeTruthy())
+  sut.evalCompletenessAsync({ description: '', size: '80', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompletenessAsync({ description: 'Muy céntrico', size: '', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompletenessAsync({ description: 'Muy céntrico', size: '80', images: [] }).then(value => expect(value).toBeFalsy())
 })
 
-test('getScore works', () => {
-  expect(() => sut.getScore({ description: 'Al lado del Pollo Express!' })).not.toThrow()
+test('getScoreAsync works', () => {
+  expect(() => sut.getScoreAsync({ description: 'Al lado del Pollo Express!' })).not.toThrow()
 })
 
 test(`evalDescriptionLength scores ${LONG_DESCRIPTION_SC} points if description is ${WORD_COUNT_LONG_DESCRIPTION}+ words`, () => {

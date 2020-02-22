@@ -4,7 +4,7 @@
   "description": "ScoringService for PT10",
   "main": "index.js",
   "scripts": {
-    "test": "standard && jest"
+    "test": "standard && jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "env": [
       "jest"
     ]
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }

@@ -4,12 +4,12 @@ const WORD_COUNT_LONG_DESCRIPTION = 50
 const LONG_DESCRIPTION_SC = 20
 
 class ChaletScore extends AdvertScore {
-  async evalCompleteness (advert) {
+  async evalCompletenessAsync (advert) {
     if (!advert.description || !advert.size) {
       return false
     }
 
-    return super.evalCompleteness(advert)
+    return super.evalCompletenessAsync(advert)
   }
 
   evalDescriptionLength (description) {

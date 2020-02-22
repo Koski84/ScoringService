@@ -6,12 +6,12 @@ const WORD_COUNT_VERY_LONG_DESCRIPTION = 50
 const VERY_LONG_DESCRIPTION_SC = 30
 
 class PisoScore extends AdvertScore {
-  async evalCompleteness (advert) {
+  async evalCompletenessAsync (advert) {
     if (!advert.description || !advert.size) {
       return false
     }
 
-    return super.evalCompleteness(advert)
+    return super.evalCompletenessAsync(advert)
   }
 
   evalDescriptionLength (description) {

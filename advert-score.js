@@ -15,18 +15,21 @@ class AdvertScore {
     this.KEYWORDS_ARRAY = ['Luminoso', 'Nuevo', 'Cuidado', 'Fabuloso', 'Único', 'Excepcional', 'Ocasión']
   }
 
-  async getScore (advert) {
+  async getScoreAsync (advert) {
     const { images, description } = advert
 
-    const imagesScore = this.evalImages(images)
-    const descriptionScore = this.evalDescription(description)
-    const keywordsScore = this.evalKeywords(description)
-    const completenessScore = this.evalCompleteness(advert) ? COMPLETENESS_SC : 0
+    const imagesScorePromise = this.evalImagesAsync(images)
+    const descriptionScorePromise = this.evalDescriptionAsync(description)
+    const keywordsScorePromise = this.evalKeywordsAsync(description)
+    const isCompletePromise = this.evalCompletenessAsync(advert)
 
-    return await imagesScore + await descriptionScore + await keywordsScore + await completenessScore
+    return await imagesScorePromise 
+      + await descriptionScorePromise 
+      + await keywordsScorePromise 
+      + (await isCompletePromise ? COMPLETENESS_SC : 0)
   }
 
-  async evalImages (arrayOfImages) {
+  async evalImagesAsync (arrayOfImages) {
     if (this.hasImages(arrayOfImages) === false) {
       return NO_IMAGES_SC
     }
@@ -44,7 +47,7 @@ class AdvertScore {
     return true
   }
 
-  async evalDescription (description) {
+  async evalDescriptionAsync (description) {
     if (!description) {
       return NO_DESC_SC
     }
@@ -59,13 +62,13 @@ class AdvertScore {
     throw new Error('Must be implemented in concrete classes')
   }
 
-  async evalKeywords (description) {
+  async evalKeywordsAsync (description) {
     return this.KEYWORDS_ARRAY
       .filter(kw => new RegExp(`\\b${kw}\\b`, 'gi').test(description))
       .length * KEYWORD_SC
   }
 
-  async evalCompleteness (advert) {
+  async evalCompletenessAsync (advert) {
     if (!advert) {
       return false
     }

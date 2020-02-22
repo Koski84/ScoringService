@@ -1,12 +1,12 @@
 const { AdvertScore } = require('./advert-score')
 
 class VehiculoScore extends AdvertScore {
-  async evalCompleteness (advert) {
+  async evalCompletenessAsync (advert) {
     if (!advert.description || !advert.km || !advert.color || !advert.fabricant) {
       return false
     }
 
-    return super.evalCompleteness(advert)
+    return super.evalCompletenessAsync(advert)
   }
 
   evalDescriptionLength () {
