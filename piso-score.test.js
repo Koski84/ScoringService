@@ -4,10 +4,10 @@ const { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC, WORD_COUNT_VERY_LONG_D
 var sut = new PisoScore()
 
 test('evalCompleteness is true if advert has description, area and image (base advert constraint)', () => {
-  expect(sut.evalCompleteness({ description: 'Muy céntrico', size: '80', images: [{ quality: 'HD' }] })).toBeTruthy()
-  expect(sut.evalCompleteness({ description: '', size: '80', images: [{ quality: 'HD' }] })).toBeFalsy()
-  expect(sut.evalCompleteness({ description: 'Muy céntrico', size: '', images: [{ quality: 'HD' }] })).toBeFalsy()
-  expect(sut.evalCompleteness({ description: 'Muy céntrico', size: '80', images: [] })).toBeFalsy()
+  sut.evalCompleteness({ description: 'Muy céntrico', size: '80', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeTruthy())
+  sut.evalCompleteness({ description: '', size: '80', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompleteness({ description: 'Muy céntrico', size: '', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompleteness({ description: 'Muy céntrico', size: '80', images: [] }).then(value => expect(value).toBeFalsy())
 })
 
 test('getScore works', () => {

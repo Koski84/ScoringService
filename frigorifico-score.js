@@ -1,7 +1,7 @@
 const { AdvertScore } = require('./advert-score')
 
 class FrigorificoScore extends AdvertScore {
-  evalCompleteness (advert) {
+  async evalCompleteness (advert) {
     if (!advert.height) {
       return false
     }

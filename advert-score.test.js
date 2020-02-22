@@ -23,28 +23,28 @@ test("AdvertScore can't be instantiated because it's abstract", () => {
 
 describe('Image scoring tests', () => {
   test(`Adverts with no images score ${NO_IMAGES_SC}`, () => {
-    expect(sut.evalImages([])).toBe(NO_IMAGES_SC)
-    expect(sut.evalImages(null)).toBe(NO_IMAGES_SC)
+    sut.evalImages([]).then(value => expect(value).toBe(NO_IMAGES_SC))
+    sut.evalImages(null).then(value => expect(value).toBe(NO_IMAGES_SC))
   })
 
   test(`Adverts score ${HD_IMAGE_SC} per HD image & ${OTHER_IMAGE_SC} per other images`, () => {
-    expect(sut.evalImages([{ quality: 'HD' }])).toBe(HD_IMAGE_SC)
-    expect(sut.evalImages([{ quality: 'HD' }, { quality: 'HD' }])).toBe(HD_IMAGE_SC * 2)
-    expect(sut.evalImages([{ quality: 'SD' }])).toBe(OTHER_IMAGE_SC)
-    expect(sut.evalImages([{ quality: 'SD' }, { quality: 'SD' }])).toBe(OTHER_IMAGE_SC * 2)
-    expect(sut.evalImages([{ quality: 'HD' }, { quality: 'SD' }])).toBe(HD_IMAGE_SC + OTHER_IMAGE_SC)
+    sut.evalImages([{ quality: 'HD' }]).then(value => expect(value).toBe(HD_IMAGE_SC))
+    sut.evalImages([{ quality: 'HD' }, { quality: 'HD' }]).then(value => expect(value).toBe(HD_IMAGE_SC * 2))
+    sut.evalImages([{ quality: 'SD' }]).then(value => expect(value).toBe(OTHER_IMAGE_SC))
+    sut.evalImages([{ quality: 'SD' }, { quality: 'SD' }]).then(value => expect(value).toBe(OTHER_IMAGE_SC * 2))
+    sut.evalImages([{ quality: 'HD' }, { quality: 'SD' }]).then(value => expect(value).toBe(HD_IMAGE_SC + OTHER_IMAGE_SC))
   })
 })
 
 describe('Description scoring tests', () => {
   test(`Adverts score ${NO_DESC_SC} if they have no description`, () => {
-    expect(sut.evalDescription('')).toBe(NO_DESC_SC)
-    expect(sut.evalDescription(null)).toBe(NO_DESC_SC)
-    expect(sut.evalDescription(undefined)).toBe(NO_DESC_SC)
+    sut.evalDescription('').then(value => expect(value).toBe(NO_DESC_SC))
+    sut.evalDescription(null).then(value => expect(value).toBe(NO_DESC_SC))
+    sut.evalDescription(undefined).then(value => expect(value).toBe(NO_DESC_SC))
   })
 
   test(`Adverts score ${DESC_AVAILABLE_SC} if they have description`, () => {
-    expect(sut.evalDescription('lorem ipsum')).toBe(DESC_AVAILABLE_SC)
+    sut.evalDescription('lorem ipsum').then(value => expect(value).toBe(DESC_AVAILABLE_SC))
   })
 
   test('evalDescriptionLength is called in concrete classes', () => {
@@ -57,42 +57,42 @@ describe('Description scoring tests', () => {
   test('evalDescriptionLength return value is added', () => {
     mockFn.mockClear()
     mockFn.mockReturnValue(30)
-    expect(sut.evalDescription('lorem ipsum')).toBe(30 + DESC_AVAILABLE_SC)
+    sut.evalDescription('lorem ipsum').then(value => expect(value).toBe(30 + DESC_AVAILABLE_SC))
   })
 
   test(`evalKeywords gets ${KEYWORD_SC} points per keyword`, () => {
-    expect(sut.evalKeywords('Luminoso')).toBe(KEYWORD_SC)
-    expect(sut.evalKeywords('Luminoso y Cuidado')).toBe(KEYWORD_SC * 2)
+    sut.evalKeywords('Luminoso').then(value => expect(value).toBe(KEYWORD_SC))
+    sut.evalKeywords('Luminoso y Cuidado').then(value => expect(value).toBe(KEYWORD_SC * 2))
   })
 
   test("evalKeywords doesn't get points for keyword repetitions", () => {
-    expect(sut.evalKeywords('Cuidado Cuidado Cuidado')).toBe(KEYWORD_SC)
+    sut.evalKeywords('Cuidado Cuidado Cuidado').then(value => expect(value).toBe(KEYWORD_SC))
   })
 
   test('Letter case is ignored when searching for keywords', () => {
-    expect(sut.evalKeywords('ojo cuidado, esto es fabuloso')).toBe(KEYWORD_SC * 2)
+    sut.evalKeywords('ojo cuidado, esto es fabuloso').then(value => expect(value).toBe(KEYWORD_SC * 2))
   })
 
   test('But accent mark is not. You should write propertly', () => {
-    expect(sut.evalKeywords('No dejes pasar esta ocasión')).toBe(KEYWORD_SC)
-    expect(sut.evalKeywords('No dejes pasar esta ocasion')).toBe(0)
+    sut.evalKeywords('No dejes pasar esta ocasión').then(value => expect(value).toBe(KEYWORD_SC))
+    sut.evalKeywords('No dejes pasar esta ocasion').then(value => expect(value).toBe(0))
   })
 
   test('Keywords preffixes or suffixes invalidate the match', () => {
-    expect(sut.evalKeywords('Cuidadoso o excepcionalmente no cuentan')).toBe(0)
-    expect(sut.evalKeywords('Cuidado y excepcional si lo hacen')).toBe(KEYWORD_SC * 2)
-    expect(sut.evalKeywords('Cuidado, aunque lleve la coma detrás, también contaría')).toBe(KEYWORD_SC)
+    sut.evalKeywords('Cuidadoso o excepcionalmente no cuentan').then(value => expect(value).toBe(0))
+    sut.evalKeywords('Cuidado y excepcional si lo hacen').then(value => expect(value).toBe(KEYWORD_SC * 2))
+    sut.evalKeywords('Cuidado, aunque lleve la coma detrás, también contaría').then(value => expect(value).toBe(KEYWORD_SC))
   })
 })
 
 describe('Completeness tests', () => {
   test('evalCompleteness is true when there is one image at least', () => {
-    expect(sut.evalCompleteness({})).toBeFalsy()
-    expect(sut.evalCompleteness({ images: [] })).toBeFalsy()
-    expect(sut.evalCompleteness(null)).toBeFalsy()
-    expect(sut.evalCompleteness(undefined)).toBeFalsy()
-    expect(sut.evalCompleteness({ images: [{}] })).toBeTruthy()
-    expect(sut.evalCompleteness({ images: [{}, {}] })).toBeTruthy()
+    sut.evalCompleteness({}).then(value => expect(value).toBeFalsy())
+    sut.evalCompleteness({ images: [] }).then(value => expect(value).toBeFalsy())
+    sut.evalCompleteness(null).then(value => expect(value).toBeFalsy())
+    sut.evalCompleteness(undefined).then(value => expect(value).toBeFalsy())
+    sut.evalCompleteness({ images: [{}] }).then(value => expect(value).toBeTruthy())
+    sut.evalCompleteness({ images: [{}, {}] }).then(value => expect(value).toBeTruthy())
   })
 })
 
@@ -150,11 +150,13 @@ describe('Main function getScore tests', () => {
     evalImagesMock.mockReturnValue(1)
     evalDescriptionMock.mockReturnValue(2)
     evalKeywordsMock.mockReturnValue(3)
-    expect(sut.getScore(advert)).toBe(6)
+
+    sut.getScore(advert).then(value => expect(value).toBe(6))
   })
 
   test(`If advert is complete, then ${COMPLETENESS_SC} points are added`, () => {
     evalCompletenessMock.mockReturnValue(true)
-    expect(sut.getScore(advert)).toBe(COMPLETENESS_SC + 6)
+
+    sut.getScore(advert).then(value => expect(value).toBe(COMPLETENESS_SC + 6))
   })
 })

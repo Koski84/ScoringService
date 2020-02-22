@@ -4,10 +4,10 @@ const { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC } = scoring
 var sut = new ChaletScore()
 
 test('evalCompleteness is true if advert has description, area and image (base advert constraint)', () => {
-  expect(sut.evalCompleteness({ description: 'Vistas al mar', size: '120', images: [{ quality: 'HD' }] })).toBeTruthy()
-  expect(sut.evalCompleteness({ description: '', size: '120', images: [{ quality: 'HD' }] })).toBeFalsy()
-  expect(sut.evalCompleteness({ description: 'Vistas al mar', size: '', images: [{ quality: 'HD' }] })).toBeFalsy()
-  expect(sut.evalCompleteness({ description: 'Vistas al mar', size: '120', images: [] })).toBeFalsy()
+  sut.evalCompleteness({ description: 'Vistas al mar', size: '120', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeTruthy())
+  sut.evalCompleteness({ description: '', size: '120', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompleteness({ description: 'Vistas al mar', size: '', images: [{ quality: 'HD' }] }).then(value => expect(value).toBeFalsy())
+  sut.evalCompleteness({ description: 'Vistas al mar', size: '120', images: [] }).then(value => expect(value).toBeFalsy())
 })
 
 test('getScore works', () => {
