@@ -8,7 +8,7 @@ exports.getScore = async function (req, res) {
       throw Error('where is my advert?')
     }
 
-    const score = service.getScore(advert)
+    const score = await service.getScore(advert)
     advert.score = score
     res.status(200).json({ status: 200, data: advert, message: 'Advert succesfully scored' })
   } catch (e) {
