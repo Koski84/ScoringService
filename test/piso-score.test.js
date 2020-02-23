@@ -1,4 +1,4 @@
-const { PisoScore, scoring } = require('../piso-score')
+const { PisoScore, scoring } = require('../template/piso-score')
 const { WORD_COUNT_LONG_DESCRIPTION, LONG_DESCRIPTION_SC, WORD_COUNT_VERY_LONG_DESCRIPTION, VERY_LONG_DESCRIPTION_SC } = scoring
 
 var sut = new PisoScore()

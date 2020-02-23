@@ -1,4 +1,4 @@
-const { VehiculoScore } = require('../vehiculo-score')
+const { VehiculoScore } = require('../template/vehiculo-score')
 
 var sut = new VehiculoScore()
 

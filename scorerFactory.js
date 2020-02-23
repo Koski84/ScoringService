@@ -1,7 +1,7 @@
-const vehiculoScore = require('./vehiculo-score')
-const pisoScore = require('./piso-score')
-const chaletScore = require('./chalet-score')
-const frigorificoScore = require('./frigorifico-score')
+const vehiculoScore = require('./template/vehiculo-score')
+const pisoScore = require('./template/piso-score')
+const chaletScore = require('./template/chalet-score')
+const frigorificoScore = require('./template/frigorifico-score')
 
 const scorerFactory = ({ type }) => {
   switch (type) {
