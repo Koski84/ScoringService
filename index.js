@@ -9,6 +9,11 @@ app.use(bodyParser.json())
 app.get('/score', async (req, res) => {
   const advert = req.body
 
+  if (!advert.type) {
+    res.status(400).send('where is my advert?')
+    return;
+  } 
+  
   console.log('scoring request received. Type: ' + advert.type)
   const scorer = scorerFactory(advert)
 
