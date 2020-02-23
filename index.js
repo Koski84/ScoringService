@@ -9,7 +9,7 @@ app.get('/score', (req, res) => {
   const advert = req.body
 
   console.log('scoring request received. Type: ' + advert.type)
-  const scorer = scorerFactory.scorerFactory(advert)
+  const scorer = scorerFactory(advert)
 
   const scorePromise = scorer.getScoreAsync(advert)
   scorePromise.then(value => {

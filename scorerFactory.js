@@ -16,4 +16,4 @@ const scorerFactory = ({ type }) => {
   }
 }
 
-exports.scorerFactory = scorerFactory
+module.exports = scorerFactory
