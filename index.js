@@ -11,9 +11,9 @@ app.get('/score', async (req, res) => {
 
   if (!advert.type) {
     res.status(400).send('where is my advert?')
-    return;
-  } 
-  
+    return
+  }
+
   console.log('scoring request received. Type: ' + advert.type)
   const scorer = scorerFactory(advert)
 
