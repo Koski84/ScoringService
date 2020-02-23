@@ -1,3 +1,4 @@
+require('dotenv').config('.env')
 const express = require('express')
 const bodyParser = require('body-parser')
 const scorerFactory = require('./scorerFactory')
@@ -14,10 +15,11 @@ app.get('/score', async (req, res) => {
   const scorePromise = scorer.getScoreAsync(advert)
   scorePromise.then(value => {
     console.log('score: ' + value)
-    res.send(value.toString())
+    advert.score = value
+    res.status(200).json({ status: 200, data: advert, message: 'Advert succesfully scored' })
   })
 })
 
-app.listen(9010, () => {
-  console.debug('Listening port 9010')
+app.listen(process.env.PORT, () => {
+  console.log(`Listening port ${process.env.PORT}`)
 })
