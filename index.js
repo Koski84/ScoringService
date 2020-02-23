@@ -5,7 +5,7 @@ const scorerFactory = require('./scorerFactory')
 const app = express()
 app.use(bodyParser.json())
 
-app.get('/score', (req, res) => {
+app.get('/score', async (req, res) => {
   const advert = req.body
 
   console.log('scoring request received. Type: ' + advert.type)
