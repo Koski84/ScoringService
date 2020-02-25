@@ -1,3 +1,6 @@
+const MAX_SCORE = 100
+const MIN_SCORE = 0
+
 const NO_IMAGES_SC = -10
 const HD_IMAGE_SC = 20
 const OTHER_IMAGE_SC = 10
@@ -5,6 +8,7 @@ const NO_DESC_SC = 0
 const DESC_AVAILABLE_SC = 5
 const KEYWORD_SC = 5
 const COMPLETENESS_SC = 40
+
 
 class AdvertScore {
   constructor () {
@@ -23,10 +27,12 @@ class AdvertScore {
     const keywordsScorePromise = this.evalKeywordsAsync(description)
     const isCompletePromise = this.evalCompletenessAsync(advert)
 
-    return await imagesScorePromise +
+    const score = await imagesScorePromise +
       await descriptionScorePromise +
       await keywordsScorePromise +
       (await isCompletePromise ? COMPLETENESS_SC : 0)
+  
+    return Math.min(Math.max(score, MIN_SCORE), MAX_SCORE)
   }
 
   async evalImagesAsync (arrayOfImages) {

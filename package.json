@@ -4,7 +4,7 @@
   "description": "ScoringService for PT10",
   "main": "index.js",
   "scripts": {
-    "test": "standard && jest --watchAll"
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",

@@ -160,4 +160,20 @@ describe('Main function getScoreAsync tests', () => {
     evalCompletenessMock.mockReturnValue(false)
     sut.getScoreAsync(advert).then(value => expect(value).toBe(6))
   })
+
+  test("Score can't be lower than 0", () => {
+    evalImagesMock.mockReturnValue(-10)
+    evalDescriptionMock.mockReturnValue(-5)
+    evalKeywordsMock.mockReturnValue(-12)
+
+    sut.getScoreAsync(advert).then(value => expect(value).toBe(0))
+  })
+
+  test("Score can't be greather than 100", () => {
+    evalImagesMock.mockReturnValue(30)
+    evalDescriptionMock.mockReturnValue(65)
+    evalKeywordsMock.mockReturnValue(10)
+
+    sut.getScoreAsync(advert).then(value => expect(value).toBe(100))
+  })
 })
