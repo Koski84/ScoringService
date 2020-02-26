@@ -9,7 +9,6 @@ const DESC_AVAILABLE_SC = 5
 const KEYWORD_SC = 5
 const COMPLETENESS_SC = 40
 
-
 class AdvertScore {
   constructor () {
     if (this.constructor === AdvertScore) {
@@ -31,7 +30,7 @@ class AdvertScore {
       await descriptionScorePromise +
       await keywordsScorePromise +
       (await isCompletePromise ? COMPLETENESS_SC : 0)
-  
+
     return Math.min(Math.max(score, MIN_SCORE), MAX_SCORE)
   }
 
